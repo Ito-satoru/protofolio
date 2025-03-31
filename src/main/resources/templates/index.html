@@ -1,0 +1,134 @@
+<!--
+# カレンダーページ (HTML)
+
+このHTMLはカレンダー形式でユーザーの予定を表示するページです。ログインユーザー名の表示、カレンダーの日付、進捗ステータスの表示、予定作成リンクなどが含まれています。
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!-- ページアイコンの設定 -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- ページのタイトル設定 -->
+    <title>カレンダー</title>
+</head>
+<body>
+    <!-- ヘッダーセクション -->
+    <div class="header">
+        <!-- ログインユーザー名表示、Thymeleafで値を動的に挿入 -->
+        <h1>ようこそ、<span th:text="${username}">ゲスト</span> さん！</h1>
+        <!-- ログアウトボタン、クリック時にポップアップ表示 -->
+        <button class="logout-button" onclick="showPopup()">ログアウト</button>
+    </div>
+
+    <!-- ログアウト確認ポップアップ -->
+    <div class="overlay" id="popup-overlay">
+        <div class="popup">
+            <h2>ログアウトしますか？</h2>
+            <!-- ログアウトフォーム -->
+            <form th:action="@{/logout}" method="post" id="logout-form">
+                <!-- ログアウトボタン -->
+                <button type="submit" class="confirm">ログアウト</button>
+            </form>
+            <!-- キャンセルボタン -->
+            <button class="cancel" onclick="closePopup()">キャンセル</button>
+        </div>
+    </div>
+
+    <!-- 月間ナビゲーション -->
+    <div class="month-navigation">
+        <!-- 先月ボタン -->
+        <form th:action="@{/index}" method="get" class="month-button">
+            <input type="hidden" name="year" th:value="${prevYear}">
+            <input type="hidden" name="month" th:value="${prevMonth}">
+            <button type="submit">＜ 先月</button>
+        </form>
+
+        <!-- 現在の月表示 -->
+        <div class="current-month">
+            <strong th:text="${year} + '年 ' + ${month} + '月'"></strong>
+        </div>
+
+        <!-- 来月ボタン -->
+        <form th:action="@{/index}" method="get" class="month-button">
+            <input type="hidden" name="year" th:value="${nextYear}">
+            <input type="hidden" name="month" th:value="${nextMonth}">
+            <button type="submit">来月 ＞</button>
+        </form>
+    </div>
+
+    <!-- 新規予定作成リンク -->
+    <a th:href="@{/newTodo}" class="newTodo">新規予定作成(ここから予定は作成してください)</a>
+
+    <!-- ステータス表示 -->
+    <div class="status-container">
+        <span class="status todo-status">未着手:</span>
+        <span class="status-box todo-status"></span>
+        <span class="status in-progress-status">進行中:</span>
+        <span class="status-box in-progress-status"></span>
+        <span class="status done-status">完了:</span>
+        <span class="status-box done-status"></span>
+    </div>
+
+    <!-- カレンダー表示 -->
+    <table>
+        <tr>
+            <!-- 曜日のヘッダー -->
+            <th class="sunday">日</th>
+            <th>月</th>
+            <th>火</th>
+            <th>水</th>
+            <th>木</th>
+            <th>金</th>
+            <th class="saturday">土</th>
+        </tr>
+        <tr th:each="week : ${calendar}">
+            <!-- 1週間分の日付をループ -->
+            <td th:each="day, dayStat : ${week}" 
+                
+                th:classappend="${day == null} ? 'empty' : (dayStat.index == 0 ? 'sunday' : (dayStat.index == 6 ? 'saturday' : 'weekday'))">
+                <div th:if="${day != null}">
+                    <!-- 日付表示 -->
+                    <span th:text="${day.getDayOfMonth()}"></span>
+                    <!-- 祝日表示 -->
+                    <span th:if="${holidays[day.toString()] != null}" 
+                          th:text="${holidays[day.toString()]}" class="holiday-text"></span>
+                    <!-- その日の予定がある場合に表示 -->
+                    <ul th:if="${day != null and todoMap[day.toString()] != null}">
+                        <li th:each="todo : ${todoMap[day.toString()]}" 
+                            
+                            th:classappend="${todo.status.toString() == '未着手' ? 'todo-status' : 
+                                             (todo.status.toString() == '進行中' ? 'in-progress-status' : 
+                                             (todo.status.toString() == '完了' ? 'done-status' : ''))}">
+                            <!-- 予定タイトル、クリックすると詳細ページへ遷移 -->
+                            <a th:href="@{/todoDetail/{id}(id=${todo.id})}" class="todo-link" 
+                               th:text="${todo.title}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- フッター -->
+    <footer>
+        <p>© 2025 ito. All rights reserved.</p>
+    </footer>
+
+    <!-- ログアウトポップアップ表示/非表示のJavaScript -->
+    <script>
+        // ログアウト確認ポップアップを表示
+        function showPopup() {
+            document.getElementById('popup-overlay').style.display = 'block';
+        }
+
+        // ポップアップを非表示
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

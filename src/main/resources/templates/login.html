@@ -1,0 +1,47 @@
+<!--
+# ログインフォーム (HTML)
+
+このHTMLは、ユーザーがログインするためのフォームを提供します。ユーザー名とパスワードを入力し、認証を行うための簡単なインターフェースです。
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/loginform.css}">
+    <title>ログイン</title>
+</head>
+<body>
+    <div class="container">
+        <!-- ログインフォーム -->
+        <form th:action="@{/login}" method="post">
+            <!-- CSRFトークン -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            
+            <!-- ユーザ名入力フィールド -->
+            <div>
+                <label>ユーザ名 </label><br>
+                <input type="text" name="username" class="name" required/>
+            </div>
+            
+            <!-- パスワード入力フィールド -->
+            <div>
+                <label>パスワード </label><br>
+                <input type="password" name="password" class="name" required/>
+            </div><br>
+            
+            <!-- エラーメッセージ表示 -->
+            <div th:if="${param.error}">
+                <p>ユーザ名がみつかりません。</p>
+            </div>
+            
+            <!-- ログインボタン -->
+            <button type="submit">ログイン</button>
+        </form>
+        
+        <!-- 新規登録リンク -->
+        <p>アカウントをお持ちですか？</p>
+        <p><a th:href="@{/register}">新規登録</a></p>
+    </div>
+</body>
+</html>

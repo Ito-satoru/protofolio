@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: portfolio3
+  datasource:
+    initialization-mode: always
+#    password: postgre
+#    url: jdbc:postgresql://localhost:5432/dvdrental
+#    username: postgres
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+server:
+  port: 5000
+  
+holiday:
+  api:
+    url: http://example.com/api/holidays  # こちらが休日APIのURL設定
+
+
+#spring:
+#  application:
+#    name: portfolio3
+#  datasource:
+#    initialization-mode: always
+#    password: portfolio.03172025
+#    url: jdbc:postgresql://awseb-e-igu36gsj2m-stack-awsebrdsdatabase-o62jo6wdmj0t.clucco4m6s8f.ap-northeast-1.rds.amazonaws.com:5432/ebdb
+#    username: protofolio
+##  datasource:
+##    initialization-mode: always
+##    password: postgre
+##    url: jdbc:postgresql://localhost:5432/dvdrental
+##    username: postgres
+##  sql:
+##    init:
+##      mode: always
+#server:
+#  port: 5000
+#  
+#  #awseb-e-igu36gsj2m-stack-awsebrdsdatabase-o62jo6wdmj0t.clucco4m6s8f.ap-northeast-1.rds.amazonaws.com

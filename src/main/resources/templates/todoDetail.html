@@ -1,0 +1,99 @@
+<!--
+# Todo詳細ページ (HTML)
+
+このページは、選択されたTodo項目の詳細情報を表示します。情報にはTodoのID、番号、タイトル、内容、期日が含まれ、更新や削除が可能です。
+-->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- ページの文字エンコーディングをUTF-8に設定 -->
+    <meta charset="UTF-8">
+    <!-- モバイルデバイス向けのビューポート設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ページタイトル -->
+    <title>Todo詳細</title>
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" th:href="@{/css/todoDetail.css}">
+</head>
+<body>
+    <!-- 戻るボタン -->
+    <div class="back-button">
+        <a href="/index">
+            <button type="button">カレンダー一覧へ</button>
+        </a>
+    </div>
+
+    <!-- Todo詳細情報の表示 -->
+    <div class="container">
+        <h1>Todo詳細</h1>
+
+        <!-- Todo情報をテーブル形式で表示 -->
+        <table>
+            <tr>
+                <!-- Todo IDの表示 -->
+                <th>ID</th>
+                <td><span th:text="${todo.id}"></span></td>
+            </tr>
+            <tr>
+                <!-- Todo 番号の表示 -->
+                <th>番号</th>
+                <td><span th:text="${todo.id}"></span></td>
+            </tr>
+            <tr>
+                <!-- Todo タイトルの表示 -->
+                <th>タイトル</th>
+                <td><span th:text="${todo.title}"></span></td>
+            </tr>
+            <tr>
+                <!-- Todo 内容の表示 -->
+                <th>内容</th>
+                <td><span th:text="${todo.detail}"></span></td>
+            </tr>
+            <tr>
+                <!-- Todo 期日の表示 -->
+                <th>期日</th>
+                <td><span th:text="${todo.dueDate}"></span></td>
+            </tr>
+        </table>
+
+        <!-- Todo 更新リンク -->
+        <a th:href="@{/detailUpdate/{id}(id=${todo.id})}">更新</a>
+        <!-- Todo 削除リンク（ポップアップ表示） -->
+        <a href="javascript:void(0);" onclick="showPopup()">削除</a>
+    </div>
+
+    <!-- 削除確認ポップアップ -->
+    <div class="popup" id="deletePopup">
+        <div class="popup-content">
+            <p>本当に削除してもよろしいですか？</p>
+            <!-- 削除確認ボタン -->
+            <button class="confirm" th:data-id="${todo.id}" onclick="deleteTodo(this)">削除</button>
+            <!-- キャンセルボタン -->
+            <button class="cancel" onclick="closePopup()">キャンセル</button>
+        </div>
+    </div>
+
+    <script>
+        // ポップアップを表示する関数
+        function showPopup() {
+            document.getElementById('deletePopup').style.display = 'flex';
+        }
+
+        // ポップアップを非表示にする関数
+        function closePopup() {
+            document.getElementById('deletePopup').style.display = 'none';
+        }
+
+        // Todoを削除する関数
+        function deleteTodo(button) {
+            const todoId = button.getAttribute('data-id');
+            if (todoId) {
+                // 削除URLを生成してページ遷移
+                const url = '/detailDelete/' + todoId;
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

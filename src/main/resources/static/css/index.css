@@ -1,0 +1,345 @@
+/* 
+# CSSスタイルシート (全体的なデザイン設定)
+
+このCSSファイルでは、Webページの全体的なスタイルを設定します。具体的には、ヘッダー、ステータスの表示、月表示などをデザインします。
+*/
+
+/* 文字コードの設定 (UTF-8) */
+@charset "UTF-8"; 
+
+/* 
+## 全ての要素に共通するスタイル
+すべての要素に共通するマージン、パディング、ボックスサイズの設定をリセットします。
+*/
+* {
+    margin: 0; /* 外部マージンをリセット */
+    padding: 0; /* 内部パディングをリセット */
+    box-sizing: border-box; /* 要素の幅と高さの計算方法を変更 */
+}
+
+/* 
+## bodyに適用する基本スタイル
+ページ全体の基本スタイルをリセットします。
+*/
+body {
+    margin: 0; /* 外部マージンをリセット */
+    padding: 0; /* 内部パディングをリセット */
+}
+
+/* 
+## ヘッダーのスタイル
+ページのヘッダー部分に必要なスタイルを設定します。フレックスボックスを使って、ヘッダー内の要素を配置します。
+*/
+.header {
+    display: flex; /* フレックスボックスでレイアウト */
+    justify-content: space-between; /* ヘッダー内要素を左右に配置 */
+    align-items: center; /* 要素を縦中央に配置 */
+    padding: 20px; /* ヘッダー内の余白 */
+}
+
+/* 
+## h1タグのスタイル
+ページタイトルなどのh1タグに適用するスタイルを設定します。
+*/
+h1 {
+    font-size: 24px; /* フォントサイズを24pxに設定 */
+    font-weight: normal; /* 太さを通常に設定 */
+    margin: 0; /* マージンをゼロに設定 */
+    text-align: unset; /* 文字揃えを解除 */
+}
+
+/* 
+## ログアウトフォームのスタイル
+ログアウトボタンを表示するためのフォームのスタイルを設定します。
+*/
+.logout-form {
+    margin: 0; /* フォームの外部マージンをリセット */
+}
+
+/* 
+## ステータスの表示スタイル
+各Todoアイテムのステータスを表示するためのスタイルを設定します。
+*/
+.status-container {
+    display: flex; /* フレックスボックスでレイアウト */
+    gap: 10px; /* アイテム間に10pxの隙間を設定 */
+    align-items: center; /* アイテムを縦中央に配置 */
+    padding-left: 40px; /* 左側に40pxのパディング */
+}
+
+/* 
+## ステータスボックスのスタイル
+Todoの進行状況を示すステータスボックスのサイズと色を設定します。
+*/
+.status-box {
+    width: 20px; /* 幅20px */
+    height: 20px; /* 高さ20px */
+    border-radius: 3px; /* 角を丸くする */
+}
+
+/* 
+## 各ステータスの色設定
+進行中、未着手、完了をそれぞれ色で表示します。
+*/
+.todo-status {
+    background-color: #ffeb3b; /* 黄色 */
+}
+
+.in-progress-status {
+    background-color: #2196f3; /* 青色 */
+}
+
+.done-status {
+    background-color: #4caf50; /* 緑色 */
+}
+
+.status {
+    background-color: transparent; /* 背景色なし */
+}
+
+/* 
+## 月表示ナビゲーション
+月の切り替えボタンのスタイルを設定します。
+*/
+.month-navigation {
+    display: flex; /* フレックスボックスでレイアウト */
+    justify-content: center; /* ボタンを中央に配置 */
+    align-items: center; /* ボタンを縦中央に配置 */
+    gap: 20px; /* ボタン間に20pxの隙間を設定 */
+    margin: 0; /* マージンをリセット */
+    padding: 0; /* パディングをリセット */
+}
+
+/* 
+## 現在の月のスタイル
+現在の月を強調表示するためのスタイルを設定します。
+*/
+.current-month strong {
+    font-size: 56px; /* フォントサイズを56pxに設定 */
+    font-weight: bold; /* 太字に設定 */
+    text-align: center; /* 中央揃え */
+}
+
+/* 
+## 新規Todo作成リンク
+新しいTodoを作成するためのリンクに適用するスタイルを設定します。
+*/
+a.newTodo {
+    padding-left: 25px; /* 左側に25pxのパディング */
+    padding-bottom: 10px; /* 下に10pxのパディング */
+    text-decoration: none; /* 下線を消去 */
+}
+
+/* 
+## 新規Todo作成リンクの前に"・"を表示
+新規Todoリンクの前に「・」を追加します。
+*/
+a.newTodo::before {
+    content: "・"; /* リスト項目の先頭に「・」を追加 */
+    margin-right: 5px; /* 「・」とリンクの間に5pxの隙間を設定 */
+    text-decoration: none; /* 下線を消去 */
+}
+
+/* 
+## テーブルのスタイル
+Todoリストのテーブルに適用するスタイルを設定します。
+*/
+table {
+    width: 95%; /* テーブル幅を95%に設定 */
+    margin: 20px auto; /* 上下に20pxのマージン、中央寄せ */
+    border-collapse: collapse; /* セルの境界線を結合 */
+}
+
+/* 
+## テーブルのヘッダーセルのスタイル
+テーブルヘッダーに対してスタイルを設定します。
+*/
+th {
+    height: 30px; /* セルの高さを30pxに設定 */
+    text-align: center; /* セル内のテキストを中央揃え */
+    font-weight: bold; /* 太字に設定 */
+}
+
+/* 
+## テーブルのデータセルのスタイル
+テーブルのデータセルに対してスタイルを設定します。
+*/
+td {
+    height: 100px; /* セルの高さを100pxに設定 */
+    overflow: hidden; /* 内容がはみ出さないように非表示 */
+    vertical-align: top; /* セル内のテキストを上寄せ */
+    text-align: center; /* セル内のテキストを中央揃え */
+}
+
+/* 
+## 特定のカラムに色を設定
+1列目に異なる背景色を設定します。
+*/
+th:nth-child(1), td:nth-child(1) {
+    color: red; /* 赤色 */
+    background-color: pink; /* ピンク色 */
+}
+
+/* 
+## その他のカラムの色を設定
+他のカラムには白背景と黒文字を設定します。
+*/
+th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6),
+td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+    color: black; /* 黒色 */
+    background-color: white; /* 白色 */
+}
+
+/* 
+## テーブルの枠線設定
+テーブルとセルに枠線を追加します。
+*/
+th, td {
+    border: 1px solid black; /* 1pxの黒枠線 */
+    width: calc(95% / 7); /* 7等分にする */
+}
+
+/* 
+## リストのスタイル
+Todoアイテムをリスト形式で表示するためのスタイルを設定します。
+*/
+td > ul {
+    list-style: none; /* リストのデフォルトのマーカーを消去 */
+    max-height: 50px; /* 最大高さを50pxに設定 */
+    overflow-y: auto; /* 高さを超えた場合、縦スクロールバーを表示 */
+}
+
+/* 
+## 空のセルのスタイル
+空のセルに背景色を設定します。
+*/
+.empty {
+    background-color: #f0f0f0; /* 灰色 */
+}
+
+/* 
+## Todoのステータスに基づいたリスト項目のスタイル
+各ステータスのリスト項目に背景色を設定します。
+*/
+li.todo-status, 
+li.in-progress-status, 
+li.done-status {
+    display: inline-block; /* 横並びに表示 */
+    padding: 5px 10px; /* パディングを設定 */
+    border-radius: 5px; /* 角を丸くする */
+}
+
+li.todo-status {
+    background-color: #ffeb3b; /* 黄色 */
+    border: 2px solid #ffeb3b; /* 黄色の枠線 */
+    padding-left: 15px; /* 左に15pxのパディング */
+}
+
+li.in-progress-status {
+    background-color: #2196f3; /* 青色 */
+    border: 2px solid #2196f3; /* 青色の枠線 */
+}
+
+li.done-status {
+    background-color: #4caf50; /* 緑色 */
+    border: 2px solid #4caf50; /* 緑色の枠線 */
+}
+
+/* 
+## 休日のテキストスタイル
+休日の日付には赤い文字を設定します。
+*/
+.holiday-text {
+    color: red; /* 赤色 */
+    font-weight: bold; /* 太字 */
+}
+
+td .holiday-text {
+    background-color: pink; /* ピンク色の背景 */
+    border-radius: 50%; /* 角を丸くする */
+    padding: 5px 10px; /* パディングを設定 */
+}
+
+/* 
+## 月ナビゲーションのボタンスタイル
+月切り替えボタンのデザインを設定します。
+*/
+.month-navigation button {
+    font-size: 16px; /* フォントサイズを16pxに設定 */
+    padding: 6px 12px; /* パディングを設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* ポインターカーソル */
+    background-color: #f0f0f0; /* 背景色 */
+}
+
+/* 
+## ログアウトフォームのボタンスタイル
+ログアウトボタンのデザインを設定します。
+*/
+.logout-form button {
+    font-size: 16px; /* フォントサイズを16pxに設定 */
+    padding: 6px 12px; /* パディングを設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* ポインターカーソル */
+    background-color: #f0f0f0; /* 背景色 */
+}
+
+/* 
+## フッターのスタイル
+ページ下部のフッターに適用するスタイルを設定します。
+*/
+footer {
+    color: #333; /* 文字色を暗い灰色に設定 */
+    text-align: right; /* 右寄せ */
+}
+
+footer p {
+    margin-right: 10px; /* 右側に10pxのマージン */
+    margin-bottom: 10px; /* 下側に10pxのマージン */
+}
+
+/* 
+## オーバーレイとポップアップのスタイル
+モーダルウィンドウのデザインを設定します。
+*/
+.overlay {
+    display: none; /* 初期状態で非表示 */
+    position: fixed; /* 固定表示 */
+    top: 0; /* 上端に配置 */
+    left: 0; /* 左端に配置 */
+    width: 100%; /* 幅を100%に設定 */
+    height: 100%; /* 高さを100%に設定 */
+    background: rgba(0, 0, 0, 0.5); /* 半透明の黒い背景 */
+    z-index: 1000; /* 最前面に表示 */
+}
+
+.popup {
+    position: fixed; /* 固定表示 */
+    top: 50%; /* 中央に配置 */
+    left: 50%; /* 中央に配置 */
+    transform: translate(-50%, -50%); /* 完全に中央揃え */
+    background: white; /* 背景を白に設定 */
+    padding: 20px; /* パディングを設定 */
+    border-radius: 8px; /* 角を丸くする */
+    width: 300px; /* 幅を300pxに設定 */
+    text-align: center; /* テキストを中央揃え */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 影をつける */
+}
+
+.popup button {
+    padding: 10px 20px; /* パディングを設定 */
+    margin: 10px; /* マージンを設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* ポインターカーソル */
+    border: none; /* 枠線なし */
+}
+
+.popup .confirm {
+    background-color: #f44336; /* 確認ボタンの背景色を赤に設定 */
+    color: white; /* 文字色を白に設定 */
+}
+
+.popup .cancel {
+    background-color: #4CAF50; /* キャンセルボタンの背景色を緑に設定 */
+    color: white; /* 文字色を白に設定 */
+}

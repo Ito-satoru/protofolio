@@ -1,0 +1,56 @@
+<!--
+# 新規予定作成フォーム (HTML)
+
+このHTMLは、ユーザーが新規予定を作成するためのフォームを提供します。フォームにはタイトル、予定日、進捗ステータス、予定内容を入力するフィールドがあります。
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 文字コードをUTF-8に設定 -->
+    <meta charset="UTF-8">
+    <!-- CSSファイルのリンク -->
+    <link rel="stylesheet" th:href="@{/css/newTodoform.css}">
+    <!-- ページアイコン設定 -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- ページタイトル設定 -->
+    <title>予定新規作成</title>
+</head>
+<body>
+    <div class="container">
+        <!-- ページタイトル -->
+        <h1>予定新規の作成</h1>
+
+        <!-- フォームの開始 -->
+        <form th:action="@{/newtodo}" method="post" th:object="${TodoForm}">
+            <!-- タイトル入力フィールド -->
+            <label for="title">タイトル</label><br>
+            <!-- タイトルは必須入力 -->
+            <input type="text" th:field="*{title}" required><br>
+
+            <!-- 予定日入力フィールド -->
+            <label for="dueDate">予定日</label><br>
+            <!-- 予定日も必須入力 -->
+            <input type="date" th:field="*{dueDate}" required><br>
+
+            <!-- 進捗状況選択フィールド -->
+            <label for="status">進捗</label><br>
+            <select id="status" name="status" required>
+                <!-- 初期値は選択不可状態 -->
+                <option value="" selected disabled>これの中から選択してください</option>
+                <option value="未着手">未着手</option>
+                <option value="進行中">進行中</option>
+                <option value="完了">完了</option>
+            </select><br>
+
+            <!-- 予定内容入力フィールド -->
+            <label for="detail">予定内容</label><br>
+            <!-- 予定内容には最大100文字制限 -->
+            <textarea name="detail" maxlength="100"></textarea><br>
+
+            <!-- 送信ボタン -->
+            <button type="submit">予定登録</button>
+        </form>
+    </div>
+</body>
+</html>

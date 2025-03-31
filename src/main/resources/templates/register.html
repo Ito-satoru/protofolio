@@ -1,0 +1,44 @@
+<!--
+# 新規ユーザー登録フォーム (HTML)
+
+このHTMLは、新規ユーザー登録のためのフォームを提供します。ユーザー名、パスワード、メールアドレスを入力するためのフィールドがあり、登録ボタンで送信できます。
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- ページタイトル -->
+    <title>新規ユーザ登録</title>
+    <!-- CSSファイルのリンク -->
+    <link rel="stylesheet" th:href="@{/css/regist.css}">
+    <!-- ページアイコン設定 -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー（新規ユーザー登録タイトル） -->
+        <h1>新規ユーザー登録</h1>
+        
+        <!-- ユーザー登録フォーム -->
+        <form th:action="@{/register}" method="post">
+            <!-- ユーザ名入力フィールド -->
+            <label for="username">ユーザ名</label><br>
+            <!-- ユーザ名は必須項目 -->
+            <input type="text" id="username" name="username" required><br>
+        
+            <!-- パスワード入力フィールド -->
+            <label for="password">パスワード</label><br>
+            <!-- パスワードも必須項目 -->
+            <input type="password" id="password" name="password" required><br>
+        
+            <!-- メールアドレス入力フィールド -->
+            <label for="email">Email:</label><br>
+            <!-- メールアドレスは必須項目 -->
+            <input type="email" id="email" name="email" required><br>
+        
+            <!-- 登録ボタン -->
+            <button type="submit">登録</button>
+        </form>
+    </div>
+</body>
+</html>

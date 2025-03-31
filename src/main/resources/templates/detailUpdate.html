@@ -1,0 +1,90 @@
+<!--
+# タスク更新ページ (HTML)
+
+このページは、ユーザーがTodoタスクの詳細を更新するためのフォームを提供します。フォームには、タイトル、予定日、進捗ステータス、予定内容の入力フィールドが含まれており、更新確認のためのポップアップが表示されます。
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" th:href="@{/css/detailUpdate.css}" />
+    <!-- アイコンの設定 -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- ページのタイトル設定 -->
+    <title>タスク更新</title>
+</head>
+<body>
+    <!-- 戻るボタンの配置 -->
+    <div class="back-button">
+        <a href="/index">
+            <button type="button">カレンダー一覧へ</button>
+        </a>
+    </div>
+
+    <!-- タスク編集フォーム -->
+    <div class="container">
+        <h1>予定編集</h1>
+        <!-- フォーム開始: 更新処理のPOSTリクエスト -->
+        <form id="updateForm" th:action="@{/detailUpdate/{id}(id=${todo.id})}" method="post" th:object="${todo}">
+            
+            <!-- タイトル入力欄 -->
+            <label for="title">タイトル</label><br>
+            <input type="text" id="title" th:field="*{title}" th:value="*{title}"><br>
+
+            <!-- 予定日入力欄 -->
+            <label for="dueDate">予定日:</label><br>
+<!--            <input type="date" id="dueDate" th:field="*{dueDate}" required><br>-->
+<!--            <input type="date" id="dueDate" name="dueDate" th:field="*{dueDate}" required /><br>-->
+            <input type="date" id="dueDate" name="dueDate" th:value="${#temporals.format(todo.dueDate, 'yyyy-MM-dd')}" required /><br>
+            
+            <!-- 進捗ステータス選択欄 -->
+            <label for="status">進捗</label><br>
+            <select id="status" name="status" th:field="*{status}">
+                <option value="" selected disabled>これの中から選択してください</option>
+                <option value="未着手" th:selected="${todo.status == '未着手'}">未着手</option>
+                <option value="進行中" th:selected="${todo.status == '進行中'}">進行中</option>
+                <option value="完了" th:selected="${todo.status == '完了'}">完了</option>
+            </select>
+            <br>
+
+            <!-- 予定内容入力欄 -->
+            <label for="detail">予定内容</label><br>
+            <textarea name="detail" th:text="${todo.detail}" maxlength="100"></textarea>
+            <br>
+
+            <!-- 予定更新ボタン -->
+            <button type="button" id="openPopup">予定更新</button>
+        </form>
+    </div>
+
+    <!-- 確認ポップアップ -->
+    <div id="updatePopup" class="popup-overlay">
+        <div class="popup-content">
+            <p>本当に更新してもよろしいですか？</p>
+            <!-- 確認ボタン -->
+            <button class="confirm-btn" id="confirmUpdate">はい</button>
+            <!-- キャンセルボタン -->
+            <button class="cancel-btn" id="cancelUpdate">キャンセル</button>
+        </div>
+    </div>
+
+    <script>
+        // 予定更新ボタンがクリックされたときにポップアップを表示
+        document.getElementById('openPopup').addEventListener('click', function() {
+            document.getElementById('updatePopup').style.display = 'flex';
+        });
+
+        // キャンセルボタンがクリックされたときにポップアップを非表示
+        document.getElementById('cancelUpdate').addEventListener('click', function() {
+            document.getElementById('updatePopup').style.display = 'none';
+        });
+
+        // 確認ボタンがクリックされたときにフォームを送信
+        document.getElementById('confirmUpdate').addEventListener('click', function() {
+            document.getElementById('updateForm').submit();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+div.container {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input.name {
+    width: 70%;
+    height: 10px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
