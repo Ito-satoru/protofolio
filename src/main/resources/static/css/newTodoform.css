@@ -1,89 +1,119 @@
-/* 
-# CSSスタイルシート (基本的なフォームのデザイン)
+/* CSSスタイルシート (Todo関連のデザイン)
+このCSSは、Todoの新規作成ページ、詳細ページ、およびポップアップのデザインを担当しています */
 
-このCSSファイルでは、フォームのレイアウトとスタイルを設定します。
-*/
+/* 文字コードの設定 (UTF-8) */
+@charset "UTF-8"; /* @charsetはファイルの最初に記述しなければならない */
 
-/* 
-## すべての要素に共通する基本スタイル
-すべての要素に共通するマージン、パディング、ボックスサイズの設定をリセットします。
-*/
+/* すべての要素に共通するスタイル */
 * {
-    margin: 0; /* 外部マージンをリセット */
-    padding: 0; /* 内部パディングをリセット */
-    box-sizing: border-box; /* 幅と高さの計算方法をボーダーを含めた方式に設定 */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* 
-## bodyのスタイル
-ページ全体の外部マージンとパディングをリセットします。
-*/
-body {
-    margin: 0; /* 外部マージンをリセット */
-    padding: 0; /* 内部パディングをリセット */
-}
-
-/* 
-## コンテナ要素のスタイル
-フォームを中央に配置するためのコンテナ要素のスタイルを設定します。
-*/
+/* コンテナのスタイル */
 div.container {
-    width: 50%; /* 幅を50%に設定 */
-    margin: 70px auto 0; /* 上に70pxのマージン、左右は自動で中央寄せ */
-    text-align: center; /* テキストを中央揃え */
+    width: 50%; /* 幅を小さめに設定 */
+    margin: 10px auto; /* 上下のマージンを縮小 */
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px; /* 余白を少し減らす */
 }
 
-/* 
-## h1のスタイル
-ページタイトルに対するスタイルを設定します。
-*/
+/* 見出し (h1) のスタイル */
 h1 {
-    font-size: 80px; /* フォントサイズを80pxに設定 */
-    margin-top: 10px; /* 上に10pxのマージン */
+    font-size: 40px; /* フォントサイズを小さめに設定 */
+    margin-top: 5px;
+    letter-spacing: 5px;
 }
 
-/* 
-## ラベル要素のスタイル
-フォームのラベルに適用するフォントサイズを設定します。
-*/
+/* ラベルのスタイル */
 label {
-    font-size: 20px; /* フォントサイズを20pxに設定 */
+    font-size: 16px;
 }
 
-/* 
-## 入力フィールド (input) のスタイル
-入力フィールドに必要なスタイルを設定します。下部に20pxの隙間を確保します。
-*/
-input {
-    margin-bottom: 20px; /* 下部に20pxのマージン */
-    padding: 5px; /* 内部パディングを5pxに設定 */
+/* 入力フィールド（テキスト、セレクトボックス）のスタイル */
+input, select {
+    margin-bottom: 15px;
+    padding: 5px;
 }
 
-/* 
-## セレクトボックス (select) のスタイル
-セレクトボックスに必要なスタイルを設定します。下部に20pxの隙間を確保します。
-*/
-select {
-    margin-bottom: 20px; /* 下部に20pxのマージン */
-    padding: 5px; /* 内部パディングを5pxに設定 */
-}
-
-/* 
-## テキストエリア (textarea) のスタイル
-テキストエリアのサイズやパディングを設定し、読みやすいフォントサイズを設定します。
-*/
+/* テキストエリアのスタイル */
 textarea {
-    width: 80%; /* 幅を80%に設定 */
-    height: 150px; /* 高さを150pxに設定 */
-    padding: 10px; /* 内部パディングを10pxに設定 */
-    font-size: 16px; /* フォントサイズを16pxに設定 */
+    width: 70%; /* 幅を縮小 */
+    height: 100px; /* 高さを縮小 */
+    padding: 5px;
+    font-size: 14px;
 }
 
-/* 
-## ボタンのスタイル
-フォームの送信ボタンに対するスタイルを設定します。
-*/
+/* ボタンのスタイル */
 button {
-    padding: 10px; /* 内部パディングを10pxに設定 */
-    margin-bottom: 15px; /* 下部に15pxのマージン */
+    padding: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* 戻るボタンのスタイル */
+.back-button {
+    width: 100%;
+    padding-left: 15px;
+    margin: 15px 0;
+}
+
+.back-button button {
+    font-size: 16px;
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    color: #000;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* 戻るボタンにホバーしたときのスタイル */
+.back-button button:hover {
+    color: #4CAF50;
+}
+
+/* ポップアップオーバーレイのスタイル */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+/* ポップアップ内容のスタイル */
+.popup-content {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 350px; /* 幅を小さくする */
+    width: 75%;
+}
+
+/* 確認ボタンのスタイル */
+.confirm-btn {
+    background: green;
+    color: white;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+/* キャンセルボタンのスタイル */
+.cancel-btn {
+    background: red;
+    color: white;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
 }
